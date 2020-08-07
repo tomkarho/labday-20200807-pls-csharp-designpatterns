@@ -25,7 +25,32 @@ Courses from pluralsight
 - [C# Design Patterns: Chain of Responsibility](https://app.pluralsight.com/library/courses/0fec4dc4-5de6-4f41-b5ea-7c8350e5dce1)
 - [C# Design Patterns: Command](https://app.pluralsight.com/library/courses/de1d1815-b7b3-45ab-a359-b3b6c793fbfb)
 
-Command Pattern
-===============
-
+### Command Pattern
 [Stack](https://docs.microsoft.com/en-us/dotnet/api/system.collections.stack?view=netcore-3.1) allows to keep track of exact order and undo commands in the correct order
+
+### Chain of Responsibility
+Identified by three characteristics
+* has a sender that invokes a handles
+* handler that runs through a chain of receiverse
+* receiver that handles the given command
+
+Example: Loggers in .net core:
+1. Any component can call Logger.LogInformation()
+2. Handler passes that call to all that implement interface ILogger
+3. Receivers log the same message to different places for example
+    * Console
+    * File
+    * Database
+
+- receiver contains the logic necessary to act
+- handler only makes sure that all receivers are invoked
+- sender only needs to know about the interface
+
+Idea: Could this be implemented as a caching mechanism?
+1. User requests a Todo
+2. Handler invokes (first) the cache
+3. If cache does not have up to date data
+4. Handler invokes database operation
+
+Example 2: asp.net core middleware.
+Take a a look at asp.net core startup.cs configure method that uses this pattern to configure the application.
